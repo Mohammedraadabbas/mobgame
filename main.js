@@ -299,7 +299,7 @@ setInterval(function(){
   let xV =Math.cos(angle);
   let yV =Math.sin(angle);
 
-  // enemyRef.push({ x:xP , y:yP ,radius: enmeyRadius , velactiy:{x:xV,y:yV},color})
+   enemyRef.push({ x:xP , y:yP ,radius: enmeyRadius , velactiy:{x:xV,y:yV},color})
 },5000)
 
 // // Animation Loop
