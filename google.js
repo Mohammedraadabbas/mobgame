@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById("canvas");
 const c = canvas.getContext("2d");
 
@@ -37,6 +36,7 @@ let player = new Player(
   colors[Math.floor(Math.random() * colors.length)]
 )
 
+console.log(player)
 function Fiers(x, y, radius, color, velactiy) {
   this.x = x;
   this.y = y;
@@ -83,7 +83,7 @@ let enemies = []
 
 
 // spawn enmies
-setInterval(function () {
+let spawnEnmies = setInterval(function () {
   let radius = Math.floor(Math.random() * (20 - 10 + 1)) + 10
   let x
   let y
@@ -124,7 +124,7 @@ addEventListener('click', (e) => {
     },
   ))
 })
-
+let score ;
 // // Animation Loop
 function animate() {
   requestAnimationFrame(animate);
@@ -137,10 +137,17 @@ function animate() {
   })
   enemies.forEach((enemy, enemyIndex) => {
     enemy.update()
+    let dis = Math.hypot(player.x - enemy.x, player.y - enemy.y)
+    if (dis - enemy.radius - player.radius < 1) {
+      TelegramGameProxy.shareScore(score)
+      clearTimeout(spawnEnmies)
+      canvas.classList.add('lose')
+    }
 
     fires.forEach((fire, fireIndex) => {
       let dis = Math.hypot(fire.x - enemy.x, fire.y - enemy.y)
       if (dis - enemy.radius - fire.radius < 1) {
+        score++
         setTimeout(function () {
           enemies.splice(enemyIndex, 1)
           fires.splice(fireIndex, 1)
@@ -149,6 +156,5 @@ function animate() {
     })
   })
 }
-
 
 animate();
