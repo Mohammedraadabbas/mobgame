@@ -1,3 +1,6 @@
+
+
+
 const canvas = document.getElementById("canvas");
 const c = canvas.getContext("2d");
 
@@ -127,7 +130,7 @@ addEventListener('click', (e) => {
 let score ;
 // // Animation Loop
 function animate() {
-  requestAnimationFrame(animate);
+ let animation =  requestAnimationFrame(animate);
   c.fillStyle = ("rgba(0,0,0,0.4)")
   c.fillRect(0, 0, innerWidth, innerHeight);
 
@@ -139,9 +142,9 @@ function animate() {
     enemy.update()
     let dis = Math.hypot(player.x - enemy.x, player.y - enemy.y)
     if (dis - enemy.radius - player.radius < 1) {
-      TelegramGameProxy.shareScore(score)
-      clearTimeout(spawnEnmies)
-      canvas.classList.add('lose')
+      TelegramGameProxy.shareScore()
+      cancelAnimationFrame(animation)
+
     }
 
     fires.forEach((fire, fireIndex) => {
